@@ -1,18 +1,21 @@
 class Solution:
     def findDuplicates(self, nums: List[int]) -> List[int]:
-        i = 1
-        ll = []
+        i = 0
+        d = {}
         n = len(nums)
-        while i <= n:
-            if nums[i-1] == i:
+
+        while i < n:
+            if nums[i] == i+1:
                 i += 1
-            elif nums[nums[i-1]-1] == nums[i-1]:
-                ll.append(nums[i-1])
+            elif nums[nums[i]-1] == nums[i]:
+                d[nums[i]] = 1
                 i += 1
             else:
-                nums[i-1], nums[nums[i-1]-1] = nums[nums[i-1]-1], nums[i-1]
-                
-        return ll
+                tmp = nums[nums[i]-1]
+                nums[nums[i]-1] = nums[i]
+                nums[i] = tmp
+
+        return d.keys()
                 
 ## Naiive solution TC: O(n), SC: O(n)
 #         d = {}
